@@ -29,6 +29,33 @@ def figure1():
     matplotlib.pyplot.title("Number of COVID-19 Cases Since Jan 29, 2020", fontsize = 18)
     matplotlib.pyplot.show()
 
+def figure2():
+    cases_df = get_cases()
+    twenty = []
+    twentyone = []
+    twentytwo = []
+    twentythree = []
+    for date in cases_df['Date']:
+        seperate = date.split()
+        year = seperate[2]
+        cases = cases_df.loc[cases_df['Date'] == date, 'Weekly Cases'].iloc[0]
+        #print(cases)
+        if year == '2020':
+            twenty.append(cases)
+        elif year == '2021':
+            twentyone.append(cases)
+        elif year == '2022':
+            twentytwo.append(cases)
+        elif year == '2023':
+            twentythree.append(cases)
+    
+    fig, ax = matplotlib.pyplot.subplots(figsize=(12,7))
+    ax.boxplot([twenty, twentyone, twentytwo, twentythree])
+    ax.set_xticklabels(['2020', '2021', '2022', '2023'])
+    matplotlib.pyplot.ylabel("Number of Cases (In Millions)", fontsize = 12)
+    matplotlib.pyplot.xlabel("Years", fontsize = 12)
+    matplotlib.pyplot.title("Weekly COVID-19 Cases by Year", fontsize = 18)
+    matplotlib.pyplot.show()
 
 
 figure1()
